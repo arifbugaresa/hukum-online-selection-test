@@ -2,9 +2,9 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center my-3" href="#">
         
-        <div class="sidebar-brand-text mx-3">Hukum Online</div>
+        <div class="sidebar-brand-text mx-3">Hukum Online Academy</div>
     </a>
 
     <!-- Divider -->

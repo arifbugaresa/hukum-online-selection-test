@@ -12,7 +12,9 @@
     <title>SB Admin 2 - Dashboard</title>
 
     {{--  style  --}}
+    @stack('before-style')
     @include('includes.style')
+    @stack('after-style')
 
 </head>
 
@@ -74,7 +76,9 @@
     </div>
 
     {{--  script  --}}
+    @stack('before-script')
     @include('includes.script')
+    @stack('after-script')
 
 </body>
 
