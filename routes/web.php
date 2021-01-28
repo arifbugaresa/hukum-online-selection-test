@@ -13,5 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'DashboardController@index')->name('dashboard');
-Route::get('/filter', 'DashboardController@filter')->name('dashboard-filter');
+// Route::get('/', 'DashboardController@index')->name('dashboard');
+// Route::get('/filter', 'DashboardController@filter')->name('dashboard-filter');
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', 'DashboardController@index')->name('dashboard');
+    Route::get('/filter', 'DashboardController@filter')->name('dashboard-filter');
+});
