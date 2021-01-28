@@ -13,4 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'DashboardController@index');
+Route::get('/', 'DashboardController@index')->name('dashboard');
+Route::get('/filter', 'DashboardController@filter')->name('dashboard-filter');
