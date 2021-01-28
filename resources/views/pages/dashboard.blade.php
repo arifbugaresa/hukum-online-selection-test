@@ -1,9 +1,8 @@
 @extends('layouts.default')
 
 @section('content')
-    <!-- Begin Page Content -->
     <div class="container-fluid">
-        <!-- Page Heading -->
+        {{--  Error Message  --}}
         @if (\Session::has('success'))
             <div class="alert alert-danger">
                 <ul>
@@ -11,15 +10,16 @@
                 </ul>
             </div>
         @endif
+        {{--  end error message  --}}
+
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h6>Dashboard</h6>
             <a href="{{ route('dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-filter"><i
-                class="fas fa-filter fa-sm text-white-50"></i> Filter Data</a>
+                class="fas fa-filter fa-sm text-white-50 p-1"></i> Filter Siswa</a>
         </div>
 
-        <!-- Content Row -->
         <div class="row">
-            <!-- Card Jumlah Siswa -->
+            {{--  Card Jumlah Siswa  --}}
             <div class="col-xl-2 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
@@ -33,7 +33,8 @@
                     </div>
                 </div>
             </div>
-
+            {{--  End Card Jumlah Siswa  --}}
+            {{--  Card Siswa Laki-Laki  --}}
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-2 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
@@ -48,14 +49,14 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Earnings (Monthly) Card Example -->
+            {{--  End Card Siswa Laki-laki  --}}
+            {{--  Card Siswi Permpuan  --}}
             <div class="col-xl-2 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
+                <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     Siswi Perempuan</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $siswa_perempuan->count() }}</div>
                             </div>
@@ -63,144 +64,57 @@
                     </div>
                 </div>
             </div>
-
-            {{--  <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                </div>
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Pending Requests</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>  --}}
+            {{--  End Card Siswi Perempuan  --}}
         </div>
 
-        <!-- Content Row -->
+        {{--  Content Data Siswa  --}}
         <div class="row">
-            <!-- Area Chart -->
             <div class="col-12">
                 <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Siswa</h6>
-                            @if($mulai)
-                                <div class="d-flex d-inline align-items-center">
-                                    <h6 class="m-0 font-weight-bold text-primary">( {{ date('d F Y', strtotime($mulai)) }} - {{ date('d F Y', strtotime($sampai)) }} )</h6>
-                                    <a href="{{ route('dashboard') }}" class="mt-1"><i class="fas fa-window-close ml-2" style="color: red;"></i></i></a>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>NIS</th>
-                                            <th>Nama</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Alamat</th>
-                                            <th>Tanggal Masuk</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($siswas as $siswa)
-                                        <tr>
-                                            <td>{{ $siswa->nis }}</td>
-                                            <td>{{ $siswa->nama }}</td>
-                                            <td>{{ $siswa->jk->nama }}</td>
-                                            <td>{{ $siswa->alamat }}</td>                                            
-                                            <td>{{ date('d F Y', strtotime($siswa->created_at)) }}</td>                                            
-                                        </tr>
-                                        @empty
-
-                                        @endforelse                                        
-                                    </tbody>
-                                </table>
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Data Siswa</h6>
+                        @if($mulai)
+                            <div class="d-flex d-inline align-items-center">
+                                <h6 class="m-0 font-weight-bold text-primary">( {{ date('d F Y', strtotime($mulai)) }} - {{ date('d F Y', strtotime($sampai)) }} )</h6>
+                                <a href="{{ route('dashboard') }}" class="mt-1"><i class="fas fa-window-close ml-2" style="color: red;"></i></i></a>
                             </div>
-                        </div>
+                        @endif
                     </div>
-            </div>
-
-            {{--  <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div
-                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Jenis Kelamin</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card Body -->
+                    {{--  Body Data  --}}
                     <div class="card-body">
-                        <div class="chart-pie pt-4 pb-2">
-                            <canvas id="myPieChart"></canvas>
-                        </div>
-                        <div class="mt-4 text-center small">
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-primary"></i> Direct
-                            </span>
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-success"></i> Social
-                            </span>
-                            <span class="mr-2">
-                                <i class="fas fa-circle text-info"></i> Referral
-                            </span>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>NIS</th>
+                                        <th>Nama</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Alamat</th>
+                                        <th>Tanggal Masuk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{--  looping database  --}}
+                                    @foreach ($siswas as $siswa)
+                                    <tr>
+                                        <td>{{ $siswa->nis }}</td>
+                                        <td>{{ $siswa->nama }}</td>
+                                        <td>{{ $siswa->jk->nama }}</td>
+                                        <td>{{ $siswa->alamat }}</td>                                            
+                                        <td>{{ date('d F Y', strtotime($siswa->created_at)) }}</td>                                            
+                                    </tr>
+                                    @endforeach   
+                                    {{--  end looping database                                      --}}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    {{--  End Body Data  --}}
                 </div>
-            </div>  --}}
+            </div>
         </div>
-
-    <!-- /.container-fluid -->
+        {{--  End Content Data Siswa  --}}
+    </div>
 
     {{--  modal filter  --}}
     <div class="modal fade" id="modal-filter" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
@@ -245,12 +159,15 @@
             </div>
         </div>
     </div>
-
+    {{--  End Modal filter  --}}
 @endsection
 
 @push('after-style')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet"
+    <link 
+        rel="stylesheet" 
+        type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+    <link 
+        rel="stylesheet" 
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
 @endpush
 
@@ -266,20 +183,22 @@
     {{--  datatable  --}}
     <script>
         $(document).ready(function(){
-            //datatable
+            //Datatable
             $('#dataTable').DataTable();
+            //end Datatable
 
             //datepicker
             $('.datepicker').datepicker({
                 format: 'dd/mm/yyyy',
             });
+            //end datepicker
 
-            //filter per tanggal
+            //filter pertanggal
             $('.btn-filter').click(function(e) {
                 e.preventDefault();
-                
                 $('#modal-filter').modal();
             });
+            //end Filter pertanggal
 
         });
     </script>    
