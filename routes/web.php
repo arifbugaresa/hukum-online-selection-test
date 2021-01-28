@@ -24,3 +24,5 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::get('/filter', 'DashboardController@filter')->name('dashboard-filter');
 });
+
+Route::get('/yajra')->name('yajra.index')->uses('DashboardController@datatablesIndex');

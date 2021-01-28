@@ -21,37 +21,47 @@ class DashboardController extends Controller
         ));
     }
 
-    public function filter(Request $request)
+    public function datatables()
     {
-        $mulai = $request->mulai;
-        $sampai = $request->sampai;
+        return datatables ( Siswa::with('jk')->get())->toJson();
+    }
 
-        if ($mulai <= $sampai) {
-            $siswas = Siswa::with('jk')
-                ->whereDate('created_at', '>=' , $mulai)
-                ->whereDate('created_at', '<=', $sampai)
-                ->orderBy('created_at', 'asc')
-                ->get();
-            $siswa_laki = Siswa::with('jk')
-                ->whereDate('created_at', '>=' , $mulai)
-                ->whereDate('created_at', '<=', $sampai)
-                ->where('jenis_kelamin_id', 1)
-                ->orderBy('created_at', 'asc')
-                ->get();
+    public function datatablesIndex() 
+    {
+        return view ('pages.dashboard');   
+    }
 
-            $siswa_perempuan= Siswa::with('jk')
-                ->whereDate('created_at', '>=' , $mulai)
-                ->whereDate('created_at', '<=', $sampai)
-                ->where('jenis_kelamin_id', 2)
-                ->orderBy('created_at', 'asc')
-                ->get();
+    // public function filter(Request $request)
+    // {
+    //     $mulai = $request->mulai;
+    //     $sampai = $request->sampai;
 
-            return view('pages.dashboard', compact(
-                'siswas','mulai','sampai', 'siswa_laki', 'siswa_perempuan'
-            ));
-        } else {
-            return redirect()->back()->with('success', 'Tanggal Filter Salah, Harap isi tanggal filter dengan benar.');
-        }
+    //     if ($mulai <= $sampai) {
+    //         $siswas = Siswa::with('jk')
+    //             ->whereDate('created_at', '>=' , $mulai)
+    //             ->whereDate('created_at', '<=', $sampai)
+    //             ->orderBy('created_at', 'asc')
+    //             ->get();
+    //         $siswa_laki = Siswa::with('jk')
+    //             ->whereDate('created_at', '>=' , $mulai)
+    //             ->whereDate('created_at', '<=', $sampai)
+    //             ->where('jenis_kelamin_id', 1)
+    //             ->orderBy('created_at', 'asc')
+    //             ->get();
+
+    //         $siswa_perempuan= Siswa::with('jk')
+    //             ->whereDate('created_at', '>=' , $mulai)
+    //             ->whereDate('created_at', '<=', $sampai)
+    //             ->where('jenis_kelamin_id', 2)
+    //             ->orderBy('created_at', 'asc')
+    //             ->get();
+
+    //         return view('pages.dashboard', compact(
+    //             'siswas','mulai','sampai', 'siswa_laki', 'siswa_perempuan'
+    //         ));
+    //     } else {
+    //         return redirect()->back()->with('success', 'Tanggal Filter Salah, Harap isi tanggal filter dengan benar.');
+    //     }
         // try {
         //     $mulai = $request->mulai;
         //     $sampai = $request->sampai;  
@@ -82,6 +92,6 @@ class DashboardController extends Controller
         //     \Session::Flash('gagal', $e->getMessage());
             
         //     return redirect()->back();
-        }
+        
 
 }
