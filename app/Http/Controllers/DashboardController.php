@@ -12,11 +12,14 @@ class DashboardController extends Controller
         $siswas = Siswa::with('jk')->get();
         $jumlah = Siswa::all();
         $filter = null;
+        $mulai = null;
+        $sampai = null;
 
         return view('pages.dashboard', [
             'siswas' => $siswas,
             'jumlah' => $jumlah,
-            'filter' => $filter
+            'mulai' => $mulai,
+            'sampai' => $sampai
         ]);
     }
 
@@ -56,13 +59,15 @@ class DashboardController extends Controller
             $siswas = Siswa::with('jk')
                 ->whereDate('created_at', '>=' , $mulai)
                 ->whereDate('created_at', '<=', $sampai)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('created_at', 'asc')
                 ->get();
 
             return view('pages.dashboard', [
             'siswas' => $siswas,
             'jumlah' => $jumlah,
-            'filter' => $filter
+            'mulai' => $mulai,
+            'sampai' => $sampai
+            
         ]);
     }
 }

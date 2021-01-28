@@ -6,7 +6,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h6>Dashboard</h6>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-filter"><i
+            <a href="{{ route('dashboard') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm btn-filter"><i
                 class="fas fa-filter fa-sm text-white-50"></i> Filter Data</a>
         </div>
 
@@ -97,9 +97,9 @@
                 <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Data Siswa</h6>
-                            @if($filter)
+                            @if($mulai)
                                 <div class="d-flex d-inline align-items-center">
-                                    <h6 class="m-0 font-weight-bold text-primary">{{ $filter }}</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">( {{ date('d F Y', strtotime($mulai)) }} - {{ date('d F Y', strtotime($sampai)) }} )</h6>
                                     <a href="{{ route('dashboard') }}" class="mt-1"><i class="fas fa-window-close ml-2" style="color: red;"></i></i></a>
                                 </div>
                             @endif
@@ -200,7 +200,8 @@
                                     id="mulai" name="mulai" 
                                     autocomplete="off" 
                                     placeholder="Pilih Tanggal" 
-                                    value="{{ date('Y-m-d') }}">
+                                    value="{{ $mulai ? $mulai : date('Y-m-d') }}">
+                                    
                             </div>
                             <div class="form-group">
                                 <label for="sampai">Sampai Tanggal</label>
@@ -210,7 +211,7 @@
                                     name="sampai" 
                                     autocomplete="off" 
                                     placeholder="Pilih Tanggal" 
-                                    value="{{ date('Y-m-d') }}">
+                                    value="{{ $sampai ? $sampai : date('Y-m-d') }}">
                             </div>
                         </div>
             
