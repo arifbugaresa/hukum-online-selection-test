@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Dashboard - Hukum Online Academy</title>
 
     {{--  style  --}}
     @stack('before-style')

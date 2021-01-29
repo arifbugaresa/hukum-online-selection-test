@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Hukum Online Academy</title>
 
     @include('includes.login.style')
 

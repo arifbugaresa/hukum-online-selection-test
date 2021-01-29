@@ -1,8 +1,8 @@
 @extends('layouts.login')
 
 @section('content')
-    <div class="row justify-content-center mt-5">
-        <div class="col-xl-5 col-lg-6 col-md-9">
+    <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-6 col-md-9 mt-4">
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                     <div class="row">
@@ -14,9 +14,25 @@
                             {{--  End Logo Image  --}}
                             {{--  Form Input  --}}
                             <div class="p-5">
-                                <form method="POST" action="{{ route('login') }}" class="user">
+                                <form method="POST" action="{{ route('register') }}" class="user">
                                     @csrf
-                                    {{--  email  --}}
+                                    {{--  name  --}}
+                                    <div class="form-group">
+                                        <input id="name" type="text" 
+                                            class="form-control form-control-user @error('name') is-invalid @enderror" 
+                                            name="name" value="{{ old('name') }}" 
+                                            required autocomplete="name" 
+                                            autofocus placeholder="Name">
+                                        {{--  Error Message  --}}
+                                            @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                        {{--  End Error Message  --}}
+                                    </div>
+                                    {{--  end name  --}}
+
                                     <div class="form-group">
                                         <input id="email" type="email" 
                                             class="form-control form-control-user @error('email') is-invalid @enderror" 
@@ -35,12 +51,11 @@
 
                                     {{--  Password  --}}
                                     <div class="form-group">
-                                        <input id="password" 
+                                        <input id="password"
                                             type="password" 
-                                            class="form-control form-control-user @error('password') is-invalid @enderror" 
-                                            name="password" required 
-                                            placeholder="Password"
-                                            autocomplete="current-password">
+                                            class="form-control form-control-user @error('password') is-invalid @enderror"  
+                                            name="password" required autocomplete="new-password"
+                                            placeholder="Password">
                                         {{--  Error Message  --}}
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -49,33 +64,35 @@
                                         @enderror
                                         {{--  End Error Message  --}}
                                     </div>
-                                    {{--  End Password  --}}
 
-                                    {{--  Remember  --}}
+                                    {{--  Confirm Password  --}}
                                     <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                                <label class="custom-control-label" for="remember">
-                                                    {{ __('Remember Me') }}
-                                                </label>
-                                        </div>
+                                        <input id="password-confirm" 
+                                            type="password"
+                                            class="form-control form-control-user"
+                                            name="password_confirmation" required autocomplete="new-password"
+                                            placeholder="Password Confirmation">
+                                            
                                     </div>
-                                    {{--  End Remember  --}}
+                                    {{--  End Confirm Password  --}}
                                     
-                                    {{--  Button Login  --}}
-                                    <div class="form-group mb-3">
+                                    {{--  Button Register  --}}
+                                    <div class="form-group ">
                                         <div class="">
                                             <button type="submit" class="btn btn-primary btn-user btn-block">
-                                                {{ __('Login') }}
+                                                {{ __('Register') }}
                                             </button>
                                         </div>
                                     </div>
-                                    {{--  End Button Login  --}}
+                                    {{--  End Button Register  --}}
+
+                                    {{-- Login --}}
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="{{ url('/register') }}">Create an Account!</a>
+                                        <h6 class="small">Already have Account, <a href="{{ url('/login') }}">Login!</a></h6>
+                                        
                                     </div>
+                                    {{-- end login --}}
                                 </form>
                             </div>
                         </div>
