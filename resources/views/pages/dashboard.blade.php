@@ -34,10 +34,10 @@
                         {{--  Filter Jk  --}}
                         <div class="mb-3">
                             <label for="filter-jk"> Filter Berdasarkan Jenis Kelamin</label>
-                            <select data-column="2" class="form-control col-sm-2 filter-jk" placeholder="Filter Berdasarkan Satuan Product">
+                            <select data-column="2" class="form-control col-sm-3 filter-jk" placeholder="Filter Berdasarkan Satuan Product">
                                 <option value=""> Pilih Jenis Kelamin </option>
-                                <option value="1"> Laki-Laki </option>
-                                <option value="2"> Perempuan </option>
+                                <option value="Laki-Laki"> Laki-Laki </option>
+                                <option value="Perempuan"> Perempuan </option>
                             </select>
                         </div>
                         {{--  End Filter Jk  --}}
@@ -94,35 +94,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"> </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"> </script>
 
-    {{--  datatable  --}}
-    {{-- <script> 
-        var table = $('#table-siswa').DataTable({
-            pageLength: 25,
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route ('api.siswa') }}",
-            columns: [
-                {"data":"nis"},
-                {"data":"nama"},
-                {"data":"jk.nama"},
-                {"data":"alamat"},
-                {"data":"created_at"},
-            ],
-        });
-
-        $('.filter-jk').change(function () {
-            table.column( $(this).data('column'))
-            .search( $(this).val() )
-            .draw();    
-        });
-
-    </script>    --}}
-
     <script>
-        //CSRF TOKEN PADA HEADER
-        //Script ini wajib krn kita butuh csrf token setiap kali mengirim request post, patch, put dan delete ke server
         $(document).ready(function () {
-           
             //jalankan function load_data diawal agar data ter-load
             load_data();
 
@@ -133,6 +106,7 @@
                 autoclose: true
             });
 
+            //button filter klik
             $('#filter').click(function () {
                 var from_date = $('#from_date').val(); 
                 var to_date = $('#to_date').val(); 
@@ -144,11 +118,19 @@
                 }
             });
 
+            //refresh load semua data
             $('#refresh').click(function () {
                 $('#from_date').val('');
                 $('#to_date').val('');
                 $('#table-siswa').DataTable().destroy();
                 load_data();
+            });
+
+            //filter dari jenis kelamin
+            $('.filter-jk').change(function () {
+                $('#table-siswa').DataTable().column( $(this).data('column'))
+                .search( $(this).val() )
+                .draw();
             });
 
             //LOAD DATATABLE
@@ -166,18 +148,13 @@
                     columns: [
                         {"data":"nis"},
                         {"data":"nama"},
-                        {"data":"jenis_kelamin_id"},
+                        {"data":"jk.nama"},
                         {"data":"alamat"},
                         {"data":"created_at"}
                     ],
                 });
             }
-
-            $('.filter-jk').change(function () {
-                table.column( $(this).data('column'))
-                .search( $(this).val() )
-                .draw();
-            });
         });
     </script>
+    
 @endpush

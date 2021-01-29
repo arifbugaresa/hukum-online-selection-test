@@ -29,9 +29,16 @@ class DashboardController extends Controller
                 $siswas = Siswa::with('jk')->get();
             }
             return datatables()->of($siswas)
-                ->make(true);
+                ->toJson();
         }
         return view('pages.dashboard');
+    }
+
+    public function datatables()
+    {     
+        $siswas = Siswa::with('jk')->get();
+        return datatables()->of($siswas)
+                ->toJson();
     }
 
 
