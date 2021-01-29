@@ -7,25 +7,41 @@
         <div class="row">
             <div class="col-12">
                 <div class="card shadow mb-4">
+                    
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Data Siswa</h6>
                     </div>
-                    {{--  filter  --}}
-                    
-
                     {{--  Body Data  --}}
                     <div class="card-body">
+                        {{-- Datepicker Range --}}
+                        <label  for="input-range"> Filter Berdasarkan Tanggal Masuk Siswa</label>  
+                        <div class="row input-daterange mb-3">                 
+                            <div class="col-md-2">
+                                <input type="text" name="from_date" id="from_date" class="form-control" placeholder="From Date"
+                                    readonly />
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" name="to_date" id="to_date" class="form-control " placeholder="To Date"
+                                    readonly />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
+                                <button type="button" name="refresh" id="refresh" class="btn btn-default">Refresh</button>
+                            </div>
+                        </div>
+                        {{-- End Datepicker Range --}}
+
                         {{--  Filter Jk  --}}
                         <div class="mb-3">
                             <label for="filter-jk"> Filter Berdasarkan Jenis Kelamin</label>
-                            <select data-column="2" class="form-control col-sm-3 filter-jk" placeholder="Filter Berdasarkan Satuan Product">
+                            <select data-column="2" class="form-control col-sm-2 filter-jk" placeholder="Filter Berdasarkan Satuan Product">
                                 <option value=""> Pilih Jenis Kelamin </option>
-                                <option value="Laki-Laki"> Laki-Laki </option>
-                                <option value="Perempuan"> Perempuan </option>
+                                <option value="1"> Laki-Laki </option>
+                                <option value="2"> Perempuan </option>
                             </select>
                         </div>
                         {{--  End Filter Jk  --}}
-
+                        
                         <div class="table-responsive">
                             <table class="table table-bordered" id="table-siswa" width="100%" cellspacing="0">
                                 <thead>
@@ -37,19 +53,6 @@
                                         <th>Tanggal Masuk</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {{--  looping database  --}}
-                                    @foreach ($siswas as $siswa)
-                                    <tr>
-                                        <td>{{ $siswa->nis }}</td>
-                                        <td>{{ $siswa->nama }}</td>
-                                        <td>{{ $siswa->jk->nama }}</td>
-                                        <td>{{ $siswa->alamat }}</td>                                            
-                                        <td>{{ date('d F Y', strtotime($siswa->created_at)) }}</td>                                            
-                                    </tr>
-                                    @endforeach   
-                                    {{--  end looping database                                      --}}
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -59,51 +62,6 @@
         </div>
         {{--  End Content Data Siswa  --}}
     </div>
-
-    {{--  modal filter  --}}
-    <div class="modal fade" id="modal-filter" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
-        <div class="modal-dialog modal-default modal-dialog-centered modal-" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-notification">Lihat Data Siswa Berdasarkan Tanggal Masuk</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form role="form" action="{{ route('dashboard-filter') }}" method="get">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="mulai">Mulai Tanggal</label>
-                                <input type="date" 
-                                    class="form-control " 
-                                    id="mulai" name="mulai" 
-                                    autocomplete="off" 
-                                    placeholder="Pilih Tanggal" 
-                                    value="{{ $mulai ? $mulai : date('Y-m-d') }}">
-                                    
-                            </div>
-                            <div class="form-group">
-                                <label for="sampai">Sampai Tanggal</label>
-                                <input type="date" 
-                                    class="form-control" 
-                                    id="sampai" 
-                                    name="sampai" 
-                                    autocomplete="off" 
-                                    placeholder="Pilih Tanggal" 
-                                    value="{{ $sampai ? $sampai : date('Y-m-d') }}">
-                            </div>
-                        </div>
-            
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{--  End Modal filter  --}}
 @endsection
 
 @push('after-style')
@@ -113,6 +71,7 @@
     <link 
         rel="stylesheet" 
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
+        
 @endpush
 
 @push('after-script')    
@@ -124,6 +83,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
 
     {{--  Datepicker  --}}
+    
     <script 
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
 
@@ -135,7 +95,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"> </script>
 
     {{--  datatable  --}}
-    <script> 
+    {{-- <script> 
         var table = $('#table-siswa').DataTable({
             pageLength: 25,
             processing: true,
@@ -156,5 +116,68 @@
             .draw();    
         });
 
-    </script>   
+    </script>    --}}
+
+    <script>
+        //CSRF TOKEN PADA HEADER
+        //Script ini wajib krn kita butuh csrf token setiap kali mengirim request post, patch, put dan delete ke server
+        $(document).ready(function () {
+           
+            //jalankan function load_data diawal agar data ter-load
+            load_data();
+
+            //Iniliasi datepicker pada class input
+            $('.input-daterange').datepicker({
+                todayBtn: 'linked',
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            });
+
+            $('#filter').click(function () {
+                var from_date = $('#from_date').val(); 
+                var to_date = $('#to_date').val(); 
+                if (from_date != '' && to_date != '') {
+                    $('#table-siswa').DataTable().destroy();
+                    load_data(from_date, to_date);
+                } else {
+                    alert('Both Date is required');
+                }
+            });
+
+            $('#refresh').click(function () {
+                $('#from_date').val('');
+                $('#to_date').val('');
+                $('#table-siswa').DataTable().destroy();
+                load_data();
+            });
+
+            //LOAD DATATABLE
+            //script untuk memanggil data json dari server dan menampilkannya berupa datatable
+            //load data menggunakan parameter tanggal dari dan tanggal hingga
+            function load_data(from_date = '', to_date = '') {
+                $('#table-siswa').DataTable({
+                    processing: true,
+                    serverSide: true, //aktifkan server-side 
+                    ajax: {
+                        url: "{{ route('dashboard.index') }}",
+                        type: 'GET',
+                        data:{from_date:from_date, to_date:to_date} //jangan lupa kirim parameter tanggal 
+                    },
+                    columns: [
+                        {"data":"nis"},
+                        {"data":"nama"},
+                        {"data":"jenis_kelamin_id"},
+                        {"data":"alamat"},
+                        {"data":"created_at"}
+                    ],
+                });
+            }
+
+            $('.filter-jk').change(function () {
+                table.column( $(this).data('column'))
+                .search( $(this).val() )
+                .draw();
+            });
+        });
+    </script>
 @endpush

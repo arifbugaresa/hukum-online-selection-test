@@ -18,11 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/', 'DashboardController@index')->name('dashboard');
-    Route::get('/filter', 'DashboardController@filter')->name('dashboard-filter');
+    Route::get('/', 'DashboardController@index');
+    Route::resource('dashboard', 'DashboardController');
+    
 });
-
-Route::get('/yajra')->name('yajra.index')->uses('DashboardController@datatablesIndex');
